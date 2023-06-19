@@ -1,14 +1,17 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import { USER_TYPES } from '../../constants/db.constants.js';
 const Schema = mongoose.Schema;
+
 const userSchema = new Schema({
 	name: String,
 	type: {
 		type: String,
-		enum: ['guest', 'email', 'google'],
-		default: 'guest',
+		enum: [USER_TYPES.GUEST, USER_TYPES.EMAIL, USER_TYPES.GOOGLE],
+		default: USER_TYPES.GUEST,
 	},
 	photoURL: String,
 	email: String,
 	password: String,
 });
-module.exports = mongoose.model('User', userSchema);
+
+export default mongoose.model('User', userSchema);

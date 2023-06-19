@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
+import { siteController } from '../controllers/site.js';
 const router = express.Router();
-const siteController = require('../controllers/site.js');
 
 router.get('/', siteController.loadServer);
-module.exports = router;
+export default router;

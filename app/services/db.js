@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { DB_CONNECTION_STRING } = require('../../configs/env.config.js');
+import mongoose from 'mongoose';
+import { DB_CONNECTION_STRING } from '../../configs/env.config.js';
 async function DBConnect() {
 	try {
 		await mongoose.connect(DB_CONNECTION_STRING);
@@ -8,4 +8,4 @@ async function DBConnect() {
 		console.log(error);
 	}
 }
-module.exports = { DBConnect };
+export { DBConnect };

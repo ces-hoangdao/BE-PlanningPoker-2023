@@ -1,13 +1,15 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
+
 const historySchema = new Schema({
 	issueName: String,
-	roomId: Schema.Types.ObjectId,
-	result: Number,
-	agreement: Number,
+	room: mongoose.Types.ObjectId,
+	results: Number,
+	agreements: Number,
 	duration: Number,
 	date: Date,
 	voteOnTotal: String,
-	playerResult: String,
+	playerResults: String,
 });
-module.exports = mongoose.model('VotingHistory', historySchema);
+
+export default mongoose.model('VotingHistory', historySchema);

@@ -1,10 +1,16 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import {
+	ROOM_NAME_DEFAULT,
+	ROOM_STATUSES,
+	VOTING_SYSTEM,
+} from '../../constants/db.constants.js';
 const Schema = mongoose.Schema;
+
 const votingSchema = new Schema(
 	{
 		user: {
 			type: mongoose.Types.ObjectId,
-			ref: 'user',
+			ref: 'User',
 		},
 		vote: String,
 		connected: Boolean,
@@ -13,10 +19,11 @@ const votingSchema = new Schema(
 		_id: false,
 	}
 );
+
 const roomSchema = new Schema({
 	name: {
 		type: String,
-		default: 'Planning poker game',
+		default: ROOM_NAME_DEFAULT,
 	},
 	fullConsensus: {
 		type: Number,
@@ -24,14 +31,15 @@ const roomSchema = new Schema({
 	},
 	votingSystem: {
 		type: Array,
-		default: [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, '?', 'coffee'],
+		default: VOTING_SYSTEM.DEFAULT,
 	},
 	status: {
 		type: String,
-		enum: ['ready', 'voting', 'concluded'],
+		enum: [ROOM_STATUSES.READY, ROOM_STATUSES.VOTING, ROOM_STATUSES.CONCLUDED],
+		default: ROOM_STATUSES.READY,
 	},
 	voting: [votingSchema],
 	selectedIssue: mongoose.Types.ObjectId,
 });
 
-module.exports = mongoose.model('Room', roomSchema);
+export default mongoose.model('Room', roomSchema);

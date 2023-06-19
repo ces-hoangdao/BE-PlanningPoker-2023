@@ -1,6 +1,6 @@
-module.exports = {
-	User: require('./user.js'),
-	Room: require('./room.js'),
-	History: require('./history.js'),
-	Issue: require('./issue.js'),
-};
+import History from './history.js';
+import Issue from './issue.js';
+import Room from './room.js';
+import User from './user.js';
+
+export { History, Issue, Room, User };
