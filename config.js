@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 const CLIENT_URL = process.env.DEV_CLIENT_URL || 'http://localhost:3000';
 const SERVER_URL = process.env.DEV_SERVER_URL || 'http://localhost:8080';
 const DB_CONNECTION_STRING =
