@@ -13,5 +13,6 @@ export const ROUTES = {
     GOOGLE_LOGIN_SUCCESS: '/login/success',
     LOGOUT: '/logout',
     SIGNUP: '/signup',
+    GUEST_LOGIN: '/guest/login',
   },
 };
