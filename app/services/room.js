@@ -1,7 +1,7 @@
 import { VotingSystems } from '../../constants/db.constants';
 import { RESPONSE_MESSAGE } from '../../constants/message';
 import { NotFoundException } from '../exceptions/NotFoundException';
-import { Room } from '../models/index';
+import { History, Room } from '../models/index';
 
 export const roomService = {
   async createRoom(roomName) {
@@ -33,5 +33,27 @@ export const roomService = {
     }
     voting[userVotingIndex] = userVoting;
     await room.save();
+  },
+
+  async saveHistory({
+    issueName,
+    room,
+    results,
+    agreements,
+    durations,
+    date,
+    voteOnTotal,
+    playerResults,
+  }) {
+    await History.create({
+      issueName,
+      room,
+      results,
+      agreements,
+      durations,
+      date,
+      voteOnTotal,
+      playerResults,
+    });
   },
 };

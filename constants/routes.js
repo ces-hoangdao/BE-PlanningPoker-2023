@@ -19,5 +19,6 @@ export const ROUTES = {
   ROOM: {
     PATH: '/room',
     NOMINATE: '/nominate',
+    HISTORY: '/history',
   },
 };
