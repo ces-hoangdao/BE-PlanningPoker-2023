@@ -4,6 +4,9 @@ export const ROUTES = {
   ROOT: {
     PATH: '/',
   },
+  DOCS: {
+    PATH: '/docs',
+  },
   AUTH: {
     PATH: '/auth',
     GOOGLE_OAUTH: '/google',
@@ -16,8 +19,13 @@ export const ROUTES = {
     GUEST_LOGIN: '/guest/login',
     EMAIL_LOGIN: '/email/login',
   },
+  USER: {
+    PATH: '/user',
+    GET: '/:id',
+  },
   ROOM: {
     PATH: '/room',
+    GET_ROOM: '/:id',
     NOMINATE: '/nominate',
   },
 };
