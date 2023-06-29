@@ -1,8 +1,7 @@
 import express from 'express';
-import session from 'express-session';
 import { body } from 'express-validator';
 import passport from 'passport';
-import { CLIENT_URL, SESSION_SECRET } from '../../config';
+import { CLIENT_URL } from '../../config';
 import { ROUTES } from '../../constants/routes';
 import { authController } from '../controllers/auth';
 import '../services/passport';
@@ -13,19 +12,7 @@ import '../services/passport';
  *   name: auth
  *   description: auth-related api
  */
-
 const router = express.Router();
-
-router.use(
-  session({
-    secret: SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: false,
-    },
-  })
-);
 
 router.use(passport.initialize());
 router.use(passport.session());
@@ -48,9 +35,11 @@ router.get(
 router.get(
   ROUTES.AUTH.GOOGLE_CALLBACK,
   passport.authenticate('google', {
-    successRedirect: `${CLIENT_URL}`,
-    failureRedirect: ROUTES.AUTH.GOOGLE_CALLBACK_FAILED,
-  })
+    session: false,
+  }),
+  (req, res) => {
+    res.redirect(`${CLIENT_URL}/user/${req.user}`);
+  }
 );
 
 router.get(ROUTES.AUTH.GOOGLE_CALLBACK_FAILED, authController.googleAuthFailed);
