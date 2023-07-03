@@ -1,7 +1,7 @@
 import { VotingSystems } from '../../constants/db.constants';
 import { RESPONSE_MESSAGE } from '../../constants/message';
 import { NotFoundException } from '../exceptions/NotFoundException';
-import { Room } from '../models/index';
+import { Room, Voting } from '../models/index';
 
 export const roomService = {
   async createRoom(roomName) {
@@ -38,5 +38,44 @@ export const roomService = {
   async getRoomById(roomId) {
     const room = await Room.findById(roomId);
     return room;
+  },
+
+  async addUserToRoom(userId, roomId) {
+    try {
+      const room = await Room.findById(roomId);
+      if (room) {
+        const userIndex = room.voting.findIndex(
+          (userVoting) => userVoting.user === userId
+        );
+        if (userIndex === -1) {
+          const voting = new Voting({
+            user: userId,
+            vote: '',
+            connected: true,
+          });
+          room.voting.push(voting);
+          await room.save();
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  async removeUserFromRoom(userId, roomId) {
+    try {
+      const room = await Room.findById(roomId);
+      if (room) {
+        const userIndex = room.voting.findIndex(
+          (userVoting) => userVoting.user === userId
+        );
+        if (userIndex !== -1) {
+          room.voting.splice(userIndex, 1);
+          await room.save();
+        }
+      }
+    } catch {
+      return false;
+    }
   },
 };

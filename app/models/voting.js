@@ -24,7 +24,7 @@ const { Schema } = mongoose;
  *           description: The staus that user is still in room or not
  *           example: true
  */
-const votingSchema = new Schema(
+export const votingSchema = new Schema(
   {
     user: {
       type: String,
@@ -41,4 +41,4 @@ const votingSchema = new Schema(
   }
 );
 
-export default votingSchema;
+export default mongoose.model('Voting', votingSchema);
